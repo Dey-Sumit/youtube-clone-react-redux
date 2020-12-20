@@ -17,26 +17,25 @@ export const login = () => async dispatch => {
 
       const provider = new firebase.auth.GoogleAuthProvider()
 
-      await auth.signInWithPopup(provider)
+      const res = await auth.signInWithPopup(provider)
+      const accessToken = res.credential.accessToken
 
-      dispatch(load_user())
+      const profile = {
+         name: res.additionalUserInfo.profile.name,
+         photoURL: res.additionalUserInfo.profile.picture,
+      }
 
-      //   const accessToken = res.credential.accessToken
+      sessionStorage.setItem('ytc-access-token', accessToken)
+      sessionStorage.setItem('ytc-user', JSON.stringify(profile))
 
-      //   const profile = {
-      //      name: res.additionalUserInfo.profile.name,
-      //      photoURL: res.additionalUserInfo.profile.picture,
-      //   }
-      //   console.log(profile)
-
-      //   dispatch({
-      //      type: LOGIN_SUCCESS,
-      //      payload: accessToken,
-      //   })
-      //   dispatch({
-      //      type: LOAD_PROFILE,
-      //      payload: profile,
-      //   })
+      dispatch({
+         type: LOGIN_SUCCESS,
+         payload: accessToken,
+      })
+      dispatch({
+         type: LOAD_PROFILE,
+         payload: profile,
+      })
    } catch (error) {
       console.log(error.message)
       dispatch({
@@ -46,41 +45,12 @@ export const login = () => async dispatch => {
    }
 }
 
-export const load_user = () => async dispatch => {
-   auth.onAuthStateChanged(async user => {
-      if (user) {
-         dispatch({
-            type: LOGIN_REQUEST,
-         })
-         const accessToken = await user.getIdToken()
-
-         const profile = {
-            name: user.name,
-            photoURL: user.photoURL,
-         }
-
-         localStorage.setItem('ytc-access-token', accessToken)
-
-         dispatch({
-            type: LOGIN_SUCCESS,
-            payload: accessToken,
-         })
-         dispatch({
-            type: LOAD_PROFILE,
-            payload: profile,
-         })
-      } else {
-         dispatch({
-            type: LOGIN_FAIL,
-            payload: 'USER IS NOT LOGGED IN',
-         })
-      }
-   })
-}
-
 export const log_out = () => async dispatch => {
    await auth.signOut()
    dispatch({
       type: LOG_OUT,
    })
+
+   sessionStorage.removeItem('ytc-access-token')
+   sessionStorage.removeItem('ytc-user')
 }

@@ -7,10 +7,12 @@ import {
 } from '../actionType'
 
 const initialState = {
-   accessToken: localStorage.getItem('ytc-access-token')
-      ? localStorage.getItem('ytc-access-token')
+   accessToken: sessionStorage.getItem('ytc-access-token')
+      ? sessionStorage.getItem('ytc-access-token')
       : null,
-   user: null,
+   user: sessionStorage.getItem('ytc-user')
+      ? JSON.parse(sessionStorage.getItem('ytc-user'))
+      : null,
    loading: false,
 }
 
@@ -44,8 +46,6 @@ export const authReducer = (prevState = initialState, action) => {
          }
 
       case LOG_OUT:
-         localStorage.removeItem('ytc-access-token')
-
          return {
             ...prevState,
             accessToken: null,

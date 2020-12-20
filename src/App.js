@@ -9,8 +9,7 @@ import LoginScreen from './screens/loginScreen/LoginScreen'
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom'
 
 import './_app.scss'
-import { useDispatch, useSelector } from 'react-redux'
-import { load_user } from './redux/actions/auth.action'
+import { useSelector } from 'react-redux'
 
 const Layout = ({ children }) => {
    const [sidebar, toggleSidebar] = useState(false)
@@ -37,12 +36,6 @@ const App = () => {
    const { accessToken, loading } = useSelector(state => state.auth)
 
    const history = useHistory()
-
-   const dispatch = useDispatch()
-
-   useEffect(() => {
-      dispatch(load_user())
-   }, [dispatch])
 
    useEffect(() => {
       if (!loading && !accessToken) {
