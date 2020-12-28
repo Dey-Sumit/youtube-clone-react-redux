@@ -6,7 +6,7 @@ import request from '../../api'
 
 import moment from 'moment'
 import numeral from 'numeral'
-
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 const Video = ({ video }) => {
    const {
       id,
@@ -62,8 +62,9 @@ const Video = ({ video }) => {
    return (
       <div className='video'>
          <div className='video__top'>
-            <img src={medium.url} alt='' />
-            <span>{_duration}</span>
+            {/* <img src={medium.url} alt='' /> */}
+            <LazyLoadImage src={medium.url} effect='blur' />
+            <span className='video__top__duration'>{_duration}</span>
          </div>
          <div className='video__title'>{title}</div>
          <div className='video__details'>
@@ -73,7 +74,9 @@ const Video = ({ video }) => {
             <span>{moment(publishedAt).fromNow()} </span>
          </div>
          <div className='video__channel'>
-            <img src={channelIcon?.url} alt='' />
+            {/* <img src={channelIcon?.url} alt='' /> */}
+            <LazyLoadImage src={channelIcon?.url} effect='blur' />
+
             <p>{channelTitle}</p>
          </div>
       </div>
