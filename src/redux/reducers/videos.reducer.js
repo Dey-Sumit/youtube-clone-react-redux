@@ -1,13 +1,23 @@
 import {
+   CHANNEL_DETAILS_SUCCESS,
+   CHANNEL_VIDEOS_FAIL,
+   CHANNEL_VIDEOS_REQUEST,
+   CHANNEL_VIDEOS_SUCCESS,
    HOME_VIDEOS_FAIL,
    HOME_VIDEOS_REQUEST,
    HOME_VIDEOS_SUCCESS,
    RELATED_VIDEO_FAIL,
    RELATED_VIDEO_REQUEST,
    RELATED_VIDEO_SUCCESS,
+   SEARCHED_VIDEO_FAIL,
+   SEARCHED_VIDEO_REQUEST,
+   SEARCHED_VIDEO_SUCCESS,
    SELECTED_VIDEO_FAIL,
    SELECTED_VIDEO_REQUEST,
    SELECTED_VIDEO_SUCCESS,
+   SUBSCRIPTIONS_CHANNEL_FAIL,
+   SUBSCRIPTIONS_CHANNEL_REQUEST,
+   SUBSCRIPTIONS_CHANNEL_SUCCESS,
 } from '../actionType'
 
 export const homeVideosReducer = (
@@ -107,6 +117,105 @@ export const relatedVideoReducer = (
             loading: false,
          }
       case RELATED_VIDEO_FAIL:
+         return {
+            ...state,
+            loading: false,
+            error: payload,
+         }
+
+      default:
+         return state
+   }
+}
+
+export const searchedVideosReducer = (
+   state = {
+      loading: true,
+      videos: [],
+   },
+   action
+) => {
+   const { payload, type } = action
+
+   switch (type) {
+      case SEARCHED_VIDEO_REQUEST:
+         return {
+            ...state,
+            loading: true,
+         }
+      case SEARCHED_VIDEO_SUCCESS:
+         return {
+            ...state,
+            videos: payload,
+            loading: false,
+         }
+      case SEARCHED_VIDEO_FAIL:
+         return {
+            ...state,
+            loading: false,
+            error: payload,
+         }
+
+      default:
+         return state
+   }
+}
+
+export const subscriptionsChannelReducer = (
+   state = {
+      loading: true,
+      videos: [],
+   },
+   action
+) => {
+   const { payload, type } = action
+
+   switch (type) {
+      case SUBSCRIPTIONS_CHANNEL_REQUEST:
+         return {
+            ...state,
+            loading: true,
+         }
+      case SUBSCRIPTIONS_CHANNEL_SUCCESS:
+         return {
+            ...state,
+            videos: payload,
+            loading: false,
+         }
+      case SUBSCRIPTIONS_CHANNEL_FAIL:
+         return {
+            ...state,
+            loading: false,
+            error: payload,
+         }
+
+      default:
+         return state
+   }
+}
+
+export const channelVideosReducer = (
+   state = {
+      loading: true,
+      videos: [],
+   },
+   action
+) => {
+   const { payload, type } = action
+
+   switch (type) {
+      case CHANNEL_VIDEOS_REQUEST:
+         return {
+            ...state,
+            loading: true,
+         }
+      case CHANNEL_VIDEOS_SUCCESS:
+         return {
+            ...state,
+            videos: payload,
+            loading: false,
+         }
+      case CHANNEL_VIDEOS_FAIL:
          return {
             ...state,
             loading: false,
