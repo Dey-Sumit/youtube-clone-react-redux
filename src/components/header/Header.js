@@ -17,7 +17,7 @@ const Header = ({ handleToggleSidebar }) => {
 
       history.push(`/search/${input}`)
    }
-   const { photoURL } = useSelector(state => state.auth?.user)
+   const user = useSelector(state => state.auth?.user)
 
    return (
       <div className='header '>
@@ -48,7 +48,7 @@ const Header = ({ handleToggleSidebar }) => {
          <div className='header__icons'>
             <MdNotifications size={28} />
             <MdApps size={28} />
-            <img src={photoURL} alt='avatar' />
+            <img src={user?.photoURL} alt='avatar' />
          </div>
       </div>
    )
