@@ -12,7 +12,7 @@ npm run start
 ```
 
 ## The project is deployed on Firebase : 
-[Not-utube](https://not-utube.web.app/)
+[Not-utube](https://not-yt.web.app/)
 
 ## Project tutorial on YouTube : 
   [Tutorial of YouTube Clone](https://youtu.be/Mos5QJAje28)
